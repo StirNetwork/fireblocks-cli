@@ -14,4 +14,4 @@ echo "<!-- The list below is automatically generated. Do not edit manually. -->"
 echo "" >> CONTRIBUTORS.md
 
 # Get unique contributors in the format: Name <email>
-git log --format='%aN <%aE>' | tac | awk '!seen[$0]++' >> CONTRIBUTORS.md
+git log --format='%aN <%aE>' | tac | awk '!seen[$0]++ { print "- " $0 }' >> CONTRIBUTORS.md
