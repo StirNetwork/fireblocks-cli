@@ -1,3 +1,4 @@
+---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
@@ -27,3 +28,17 @@ repos:
         entry: python ./scripts/add_author.py
         language: python
         files: \.(py|sh)$
+  - repo: local
+    hooks:
+      - id: lint-python
+        name: Exec linter for python
+        entry: black .
+        language: python
+        files: \.py$
+  - repo: local
+    hooks:
+      - id: check-signoff
+        name: Enforce Signed-off-by line
+        entry: ./scripts/check_signoff.sh
+        language: script
+        stages: [commit-msg]
