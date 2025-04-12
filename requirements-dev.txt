@@ -3,4 +3,3 @@ bump-my-version
 black
 reuse
 pre-commit
-yamllint
