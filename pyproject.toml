@@ -1,7 +1,7 @@
 [project]
 name = "fireblocks-cli"
-version = "0.1.0"
-description = "A CLI tool for managing Fireblocks API keys and profiles"
+version = "0.1.1"
+description = "An unofficial CLI for managing Fireblocks services."
 authors = [{ name = "Kamon Shohei" }]
 readme = "README.md"
 requires-python = ">=3.8"
@@ -12,4 +12,3 @@ dependencies = [
 
 [project.scripts]
 fireblocks-cli = "fireblocks_cli.main:app"
-

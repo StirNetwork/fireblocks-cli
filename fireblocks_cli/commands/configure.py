@@ -1,7 +1,14 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity
+#
+# SPDX-License-Identifier: MPL-2.0
+
+# Author: Shohei KAMON <cameong@stir.network>
+
 import typer
 from fireblocks_cli.crypto import generate_key_and_csr
 
 configure_app = typer.Typer()
+
 
 @configure_app.command("gen-keys")
 def gen_keys():

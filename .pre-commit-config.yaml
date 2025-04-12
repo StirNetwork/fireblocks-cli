@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
+  - repo: local
+    hooks:
+      - id: update-contributors
+        name: Update CONTRIBUTORS.md
+        entry: bash ./scripts/generate_contributors.sh
+        language: system
+        files: ^CONTRIBUTORS\.md$
+  - repo: local
+    hooks:
+      - id: add-spdx
+        name: Add spdx
+        entry: make annotate-SPD
+        language: system
+        pass_filenames: false
+        files: \.(py|sh)$
+  - repo: local
+    hooks:
+      - id: add-author
+        name: Add Author from git config
+        entry: python ./scripts/add_author.py
+        language: python
+        files: \.(py|sh)$
