@@ -73,7 +73,7 @@ flycheck_*.el
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
@@ -103,6 +103,7 @@ Temporary Items
 __pycache__/
 *.py[cod]
 *$py.class
+.python-version
 
 # C extensions
 *.so

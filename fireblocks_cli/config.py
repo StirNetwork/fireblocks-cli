@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity
+#
+# SPDX-License-Identifier: MPL-2.0
+
+# Author: Shohei KAMON <cameong@stir.network>
+
 from fireblocks_cli.commands.configure import configure_app
 import typer
 

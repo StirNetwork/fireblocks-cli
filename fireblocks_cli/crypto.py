@@ -1,16 +1,24 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity
+#
+# SPDX-License-Identifier: MPL-2.0
+
+# Author: Shohei KAMON <cameong@stir.network>
+
 import random
 import string
 from pathlib import Path
 import subprocess
 import typer
 
+
 def generate_unique_basename(base_dir: Path) -> tuple[str, Path, Path]:
     while True:
-        basename = ''.join(random.choices(string.ascii_lowercase + string.digits, k=12))
+        basename = "".join(random.choices(string.ascii_lowercase + string.digits, k=12))
         key_path = base_dir / f"{basename}.key"
         csr_path = base_dir / f"{basename}.csr"
         if not key_path.exists() and not csr_path.exists():
             return basename, key_path, csr_path
+
 
 def generate_key_and_csr(org_name: str) -> tuple[Path, Path]:
     base_dir = Path.home() / ".fireblocks" / "keys"
@@ -19,12 +27,25 @@ def generate_key_and_csr(org_name: str) -> tuple[Path, Path]:
     basename, key_path, csr_path = generate_unique_basename(base_dir)
     subj = f"/O={org_name}"
 
-    result = subprocess.run([
-        "openssl", "req", "-new", "-newkey", "ed25519",
-        "-nodes", "-keyout", str(key_path),
-        "-out", str(csr_path),
-        "-subj", subj
-    ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    result = subprocess.run(
+        [
+            "openssl",
+            "req",
+            "-new",
+            "-newkey",
+            "ed25519",
+            "-nodes",
+            "-keyout",
+            str(key_path),
+            "-out",
+            str(csr_path),
+            "-subj",
+            subj,
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
 
     if result.returncode != 0:
         typer.secho("❌ OpenSSLエラー:", fg=typer.colors.RED)
