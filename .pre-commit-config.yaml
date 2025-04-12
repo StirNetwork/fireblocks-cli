@@ -12,7 +12,7 @@ repos:
         name: Update CONTRIBUTORS.md
         entry: bash ./scripts/generate_contributors.sh
         language: system
-        files: ^CONTRIBUTORS\.md$
+        files: .
   - repo: local
     hooks:
       - id: add-spdx
