@@ -1,6 +1,6 @@
 [project]
 name = "fireblocks-cli"
-version = "0.1.1"
+version = "0.1.3"
 description = "An unofficial CLI for managing Fireblocks services."
 authors = [{ name = "Kamon Shohei" }]
 readme = "README.md"
