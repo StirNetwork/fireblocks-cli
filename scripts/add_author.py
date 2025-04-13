@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# SPDX-FileCopyrightText: 2025 Ethersecurity
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
 #
 # SPDX-License-Identifier: MPL-2.0
 
