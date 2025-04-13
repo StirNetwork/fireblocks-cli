@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*'  # v1.0.0 のようなタグで実行
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
