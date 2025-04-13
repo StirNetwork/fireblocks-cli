@@ -145,11 +145,32 @@ To change the copyright holder name inserted into source files:
 ## 🤝 Contributing
 
 Contributions are welcome!
+
 Please make sure your commits are signed off (DCO) and that you run the following before pushing:
 
 ```bash
 pre-commit run --all-files
 ```
+
+### 🖋 What is "signed off (DCO)"?
+
+By signing off your commits, you certify that you wrote the code or have the right to submit it under the project's license.
+
+To sign off a commit, use the `-s` flag when committing:
+
+```bash
+git commit -s -m "Your commit message"
+or
+git commit -sm "Your commit message"
+```
+
+This will append a line like the following to your commit message:
+
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+For more details, see the [Developer Certificate of Origin](https://developercertificate.org/).
 
 ---
 
