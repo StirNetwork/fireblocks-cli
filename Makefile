@@ -19,3 +19,5 @@ pre-commit-refresh:
 	pre-commit autoupdate
 	@echo "🚀 Running all pre-commit hooks..."
 	pre-commit run --all-files
+build-pypi:
+	python -m build
