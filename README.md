@@ -107,6 +107,7 @@ The binary will be generated in the `dist/` directory, compressed using UPX (if 
 
 - Licensed under **MPL-2.0**.
 - Files include SPDX headers and author metadata.
+
 - Please use the following before committing:
 
 ```bash
@@ -114,6 +115,31 @@ make annotate-SPD
 make add-author
 ```
 
+---
+
+### Changing the Copyright Holder
+
+To change the copyright holder name inserted into source files:
+
+1. Create a file named `COPYRIGHT_HOLDER` in the root of the repository, and write your name or your organization’s name in it.
+   For example:
+
+   ```bash
+   echo "Your Name or Organization" > COPYRIGHT_HOLDER
+   ```
+
+   > ⚠️ Note: This file is `.gitignore`'d and should not be committed.
+
+2. Run `make annotate-SPD` (or the relevant pre-commit hook) to re-annotate modified source files with the new copyright holder name.
+
+   - This target internally calls `reuse annotate` to update SPDX headers.
+   - Only `.py` and `.sh` files tracked by git are affected.
+
+   ```bash
+   make annotate-SPD
+   ```
+
+> **Important**: The value in `COPYRIGHT_HOLDER` must be under 50 characters.
 ---
 
 ## 🤝 Contributing

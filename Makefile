@@ -1,3 +1,9 @@
+# If the `COPYRIGHT_HOLDER` file exists and contains a string shorter than 50 characters,
+# use it as the name of the copyright holder.
+# If not, fall back to the default value: "Ethersecurity Inc."
+copyright_holder ?= $(shell bash scripts/get_copyright.sh)
+change_files ?= $(shell bash scripts/get_changed_files.sh)
+
 install-dev:
 	pip install -e .[dev]
 
@@ -9,7 +15,7 @@ lint-license:
 
 annotate-SPD:
 	@echo "📎 Annotating files..."
-	reuse annotate  --license MPL-2.0 --copyright "Ethersecurity"  $(shell git ls-files '*.py' '*.sh')
+	reuse annotate  --license MPL-2.0 --copyright "${copyright_holder}"  ${change_files}
 pre-commit-refresh:
 	@echo "🧹 Cleaning pre-commit cache..."
 	pre-commit clean
