@@ -6,6 +6,18 @@
 >
 > This project is inspired by the design philosophy and usability of the AWS CLI.
 
+---
+
+##  Environment
+
+This tool has been tested with:
+
+- **Python 3.11 or newer**
+
+Other versions are not officially supported.
+Please ensure you are using Python 3.11+ before running or contributing to this project.
+
+---
 
 ##  Installation
 
@@ -65,14 +77,13 @@ fireblocks-cli --help
 
 ---
 
-##  Environment
+## Directory Structure (XDG Base Directory Specification)
 
-This tool has been tested with:
+This CLI follows the [XDG Base Directory Specification](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html):
 
-- **Python 3.11 or newer**
-
-Other versions are not officially supported.
-Please ensure you are using Python 3.11+ before running or contributing to this project.
+- Configuration: `$XDG_CONFIG_HOME/fireblocks-cli/config.toml` (default: `~/.config/fireblocks-cli/config.toml`)
+- Data: `$XDG_DATA_HOME/fireblocks-cli/` (default: `~/.local/share/fireblocks-cli/`)
+- Cache: `$XDG_CACHE_HOME/fireblocks-cli/` (default: `~/.cache/fireblocks-cli/`)
 
 ---
 
@@ -159,6 +170,7 @@ To change the copyright holder name inserted into source files:
    ```
 
 > **Important**: The value in `COPYRIGHT_HOLDER` must be under 50 characters.
+
 ---
 
 ## 🤝 Contributing
