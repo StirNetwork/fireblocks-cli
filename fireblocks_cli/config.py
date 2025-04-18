@@ -4,11 +4,10 @@
 
 # Author: Shohei KAMON <cameong@stir.network>
 
-from fireblocks_cli.commands.configure import configure_app
-import typer
+from pathlib import Path
 
-app = typer.Typer()
-app.add_typer(configure_app, name="configure")
+CONFIG_DIR = Path("~/.config/fireblocks-cli").expanduser()
+CONFIG_FILE = CONFIG_DIR / "config.toml"
+CREDENTIALS_FILE = Path("~/.fireblocks/credentials").expanduser()
 
-if __name__ == "__main__":
-    app()
+DEFAULT_CONFIG = {"default": {"api_id": "", "api_secret_key": ""}}
