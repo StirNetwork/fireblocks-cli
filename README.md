@@ -66,8 +66,8 @@ fireblocks-cli --help
 
 | Subcommand        | Status          | Description                                                    | Notes                                                                 |
 |-------------------|------------------|----------------------------------------------------------------|-----------------------------------------------------------------------|
-| `init`            | Not implemented  | Initialize the default configuration files                     | Creates `~/.fireblocks/config.toml` and `~/.fireblocks/keys/`         |
-| `gen-keys`        | ✅ Implemented    | Generate Fireblocks-compatible private key and CSR            | Outputs to `.fireblocks/keys/{name}.csr`, etc.                    |
+| `init`            | Not implemented  | Initialize the default configuration files                     | Creates `~/.config/fireblocks-cli/config.toml` and `~/.config/fireblocks-cli/keys/`         |
+| `gen-keys`        | ✅ Implemented    | Generate Fireblocks-compatible private key and CSR            | Outputs to `.config/fireblocks-cli/keys/{name}.csr`, etc.                    |
 | `list`            | Not implemented  | List all configured profiles                                   | Displays `[profile]` sections from `config.toml`                      |
 | `edit`            | Not implemented  | Open the config file in your default `$EDITOR`                 | Falls back to `vi` or `nano` if `$EDITOR` is not set                  |
 | `validate`        | Not implemented  | Validate the structure and contents of the config file         | Checks for invalid or missing keys and values                         |
