@@ -13,7 +13,8 @@ readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [
     "typer[all]>0.15.0",
-    "toml>0.10.0"
+    "toml>0.10.0",
+    "tomlkit (>=0.13.2,<0.14.0)"
 ]
 
 [project.scripts]
