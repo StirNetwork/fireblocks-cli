@@ -16,6 +16,7 @@ lint-license:
 annotate-SPD:
 	@echo "📎 Annotating files..."
 	reuse annotate  --license MPL-2.0 --copyright "${copyright_holder}"  ${change_files}
+	python scripts/add_author.py  ${change_files}
 pre-commit-refresh:
 	@echo "🧹 Cleaning pre-commit cache..."
 	pre-commit clean

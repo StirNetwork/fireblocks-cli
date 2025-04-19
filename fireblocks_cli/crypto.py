@@ -27,7 +27,7 @@ def generate_key_and_csr(org_name: str) -> tuple[Path, Path]:
     api_key_dir = get_api_key_dir()
     api_key_dir.mkdir(parents=True, exist_ok=True)
 
-    basename, key_path, csr_path = generate_unique_basename(base_dir)
+    basename, key_path, csr_path = generate_unique_basename(api_key_dir)
     subj = f"/O={org_name}"
 
     result = subprocess.run(
@@ -54,5 +54,7 @@ def generate_key_and_csr(org_name: str) -> tuple[Path, Path]:
         typer.secho("❌ OpenSSLエラー:", fg=typer.colors.RED)
         typer.echo(result.stderr)
         raise typer.Exit(code=1)
+    key_path.chmod(0o600)
+    csr_path.chmod(0o600)
 
     return key_path, csr_path
