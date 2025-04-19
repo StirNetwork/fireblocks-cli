@@ -8,9 +8,10 @@ import typer
 from pathlib import Path
 from fireblocks_cli.crypto import generate_key_and_csr
 from fireblocks_cli.config import (
-    CONFIG_DIR,
-    CONFIG_FILE,
-    CREDENTIALS_FILE,
+    get_config_dir,
+    get_config_file,
+    get_api_key_dir,
+    get_credentials_file,
     DEFAULT_CONFIG,
 )
 from fireblocks_cli.utils.toml import save_toml
@@ -24,45 +25,48 @@ def init():
     typer.secho("🛠 Starting Fireblocks CLI initialization...", fg=typer.colors.CYAN)
 
     # Create the config directory if it doesn't exist
-    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
-    typer.secho(f"✅ Config directory ensured: {CONFIG_DIR}", fg=typer.colors.GREEN)
+    config_dir = get_config_dir()
+    config_dir.mkdir(parents=True, exist_ok=True)
+    typer.secho(f"✅ Config directory ensured: {config_dir}", fg=typer.colors.GREEN)
 
     # Create config.toml if it does not exist
-    if not CONFIG_FILE.exists():
+    config_file = get_config_file()
+    if not config_file.exists():
         config = DEFAULT_CONFIG.copy()
 
         # If credentials file exists, use its values to populate config
-        if CREDENTIALS_FILE.exists():
-            lines = CREDENTIALS_FILE.read_text().splitlines()
+        credentials_file = get_credentials_file()
+        if credentials_file.exists():
+            lines = credentials_file.read_text().splitlines()
             for line in lines:
                 if "api_id" in line:
                     config["default"]["api_id"] = line.split("=")[-1].strip()
                 elif "api_secret_key" in line:
                     config["default"]["api_secret_key"] = line.split("=")[-1].strip()
             typer.secho(
-                f"✅ Loaded credentials from: {CREDENTIALS_FILE}",
+                f"✅ Loaded credentials from: {credentials_file}",
                 fg=typer.colors.YELLOW,
             )
 
         # Save the populated config to file
-        save_toml(config, CONFIG_FILE)
-        typer.secho(f"✅ Created config.toml: {CONFIG_FILE}", fg=typer.colors.GREEN)
+        save_toml(config, config_file)
+        typer.secho(f"✅ Created config.toml: {config_file}", fg=typer.colors.GREEN)
     else:
         typer.secho(
-            f"⚠ config.toml already exists: {CONFIG_FILE}", fg=typer.colors.YELLOW
+            f"⚠ config.toml already exists: {config_file}", fg=typer.colors.YELLOW
         )
 
-    # Ensure ~/.fireblocks/keys directory exists
-    keys_dir = Path("~/.fireblocks/keys").expanduser()
-    keys_dir.mkdir(parents=True, exist_ok=True)
-    typer.secho(f"📁 Keys directory ensured: {keys_dir}", fg=typer.colors.GREEN)
+    # Ensure ~/.config/fireblocks-cli/keys directory exists
+    api_key_dir = get_api_key_dir()
+    api_key_dir.mkdir(parents=True, exist_ok=True)
+    typer.secho(f"✅ Keys directory ensured: {api_key_dir}", fg=typer.colors.GREEN)
 
     typer.secho("🎉 Initialization complete!", fg=typer.colors.CYAN)
 
 
 @configure_app.command("gen-keys")
 def gen_keys():
-    """秘密鍵とCSRを ~/.fireblocks/keys に生成します"""
+    """秘密鍵とCSRを api_key_dir に生成します"""
     org = typer.prompt("🔐 組織名を入力してください（例: MyCompany）").strip()
     if not org:
         typer.secho("❌ 組織名は必須です。処理を中止します。", fg=typer.colors.RED)
