@@ -1,4 +1,9 @@
-version = 1
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+#
+# SPDX-License-Identifier: MPL-2.0
+# Author: Shohei KAMON <cameong@stir.network>
+
+version = 5
 [reuse]
 license = "MPL-2.0"
 copyright = "Ethersecurity"

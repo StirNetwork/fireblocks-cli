@@ -186,3 +186,48 @@ def edit():
     except Exception as e:
         typer.secho(f"❌ Validation failed: {e}", fg=typer.colors.RED)
         raise typer.Exit(code=1)
+
+
+@configure_app.command("list")
+def list_profiles():
+    """
+    List available profiles from config.toml and credentials (if present).
+    Profiles in credentials override those in config.toml.
+    """
+    import toml
+    from fireblocks_cli.config import get_config_file, get_credentials_file
+
+    config_path = get_config_file()
+    credentials_path = get_credentials_file()
+
+    combined_data = {}
+
+    # Step 1: load config.toml
+    if config_path.exists():
+        try:
+            config_data = toml.load(config_path)
+            combined_data.update(config_data)
+        except Exception as e:
+            typer.secho(f"❌ Failed to parse config.toml: {e}", fg=typer.colors.RED)
+            raise typer.Exit(code=1)
+
+    # Step 2: override with credentials if it exists
+    if credentials_path.exists():
+        try:
+            credentials_data = toml.load(credentials_path)
+            combined_data.update(credentials_data)  # override same keys
+        except Exception as e:
+            typer.secho(f" Failed to parse credentials: {e}", fg=typer.colors.RED)
+            raise typer.Exit(code=1)
+
+    if not combined_data:
+        typer.echo("⚠️ No profiles found in config.toml or credentials.")
+        return
+
+    typer.echo("📜 Available Profiles:\n")
+    for name, values in combined_data.items():
+        api_id = values.get("api_id", "<missing>")
+        secret_type = values.get("api_secret_key", {}).get("type", "<unknown>")
+        typer.echo(
+            f"🔹 [{name}]\n    api_id: {api_id}\n    secret_type: {secret_type}\n"
+        )
