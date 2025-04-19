@@ -139,3 +139,50 @@ def validate():
             "This may cause unexpected behavior.",
             fg=typer.colors.YELLOW,
         )
+
+
+@configure_app.command("edit")
+def edit():
+    """
+    Open the config.toml file in your default editor ($EDITOR).
+    """
+    import os
+    import subprocess
+    from fireblocks_cli.config import get_config_file
+
+    config_path = get_config_file()
+
+    if not config_path.exists():
+        typer.secho(f"❌ Config file not found: {config_path}", fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+
+    editor = os.environ.get("EDITOR")
+
+    if not editor:
+        # Fallbacks
+        for fallback in ["code", "nano", "vi"]:
+            if shutil.which(fallback):
+                editor = fallback
+                break
+
+    if not editor:
+        typer.secho(
+            "❌ No editor found. Please set the $EDITOR environment variable.",
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(code=1)
+
+    try:
+        subprocess.run([editor, str(config_path)])
+    except Exception as e:
+        typer.secho(f"❌ Failed to open editor: {e}", fg=typer.colors.RED)
+        raise typer.Exit(code=1)
+        # Validate after editing
+    typer.echo("\n🔍 Validating config.toml after editing...\n")
+    try:
+        from fireblocks_cli.commands.configure import validate
+
+        validate()
+    except Exception as e:
+        typer.secho(f"❌ Validation failed: {e}", fg=typer.colors.RED)
+        raise typer.Exit(code=1)
