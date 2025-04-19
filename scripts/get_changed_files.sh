@@ -6,4 +6,5 @@
 
 # Author: Shohei KAMON <cameong@stir.network>
 
-git status --porcelain | grep -v "^??" | cut -c4- | grep -v "\.txt$"
+# exclude removed file: grep -v "^D"
+git status --porcelain | grep -v "^??" | grep -v "^D " | cut -c4- | grep -v "\.txt$"

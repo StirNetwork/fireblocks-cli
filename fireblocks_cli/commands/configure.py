@@ -15,6 +15,8 @@ from fireblocks_cli.config import (
     DEFAULT_CONFIG,
 )
 from fireblocks_cli.utils.toml import save_toml
+from tomlkit import document, table, inline_table, dumps
+
 
 configure_app = typer.Typer()
 
@@ -32,28 +34,24 @@ def init():
     # Create config.toml if it does not exist
     config_file = get_config_file()
     if not config_file.exists():
-        config = DEFAULT_CONFIG.copy()
+        doc = document()
 
-        # If credentials file exists, use its values to populate config
-        credentials_file = get_credentials_file()
-        if credentials_file.exists():
-            lines = credentials_file.read_text().splitlines()
-            for line in lines:
-                if "api_id" in line:
-                    config["default"]["api_id"] = line.split("=")[-1].strip()
-                elif "api_secret_key" in line:
-                    config["default"]["api_secret_key"] = line.split("=")[-1].strip()
-            typer.secho(
-                f"✅ Loaded credentials from: {credentials_file}",
-                fg=typer.colors.YELLOW,
-            )
+        # [default]
+        default_section = table()
+        default_section.add("api_id", "get-api_id-from-fireblocks-dashboard")
 
-        # Save the populated config to file
-        save_toml(config, config_file)
-        typer.secho(f"✅ Created config.toml: {config_file}", fg=typer.colors.GREEN)
+        secret_table = inline_table()
+        secret_table.add("type", "file")
+        secret_table.add("value", "~/.config/fireblocks-cli/keys/abcd.key")
+        secret_table.trailing_comma = True  # ← インライン整形のオプション（任意）
+        default_section.add("api_secret_key", secret_table)
+
+        doc.add("default", default_section)
+        with config_file.open("w", encoding="utf-8") as f:
+            f.write(dumps(doc))
     else:
         typer.secho(
-            f"⚠ config.toml already exists: {config_file}", fg=typer.colors.YELLOW
+            f"✅ config.toml already exists: {config_file}", fg=typer.colors.YELLOW
         )
 
     # Ensure ~/.config/fireblocks-cli/keys directory exists
