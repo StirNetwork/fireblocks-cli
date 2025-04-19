@@ -75,3 +75,69 @@ def gen_keys():
     key_path, csr_path = generate_key_and_csr(org)
     typer.secho(f"✅ 秘密鍵: {key_path}", fg=typer.colors.GREEN)
     typer.secho(f"✅ CSR   : {csr_path}", fg=typer.colors.GREEN)
+
+
+@configure_app.command("validate")
+def validate():
+    """
+    Validate the format of config.toml and credentials files.
+    """
+    from fireblocks_cli.config import get_config_file, get_credentials_file
+    import toml
+    from pathlib import Path
+
+    profiles_by_file = {}
+
+    def validate_file(path: Path):
+        if not path.exists():
+            typer.echo(f"⚠️ {path} not found. Skipping.")
+            return {}
+
+        try:
+            data = toml.load(path)
+        except Exception as e:
+            typer.secho(f"❌ Failed to parse {path}: {e}", fg=typer.colors.RED)
+            raise typer.Exit(code=1)
+
+        for profile, values in data.items():
+            if not isinstance(values, dict):
+                typer.secho(f"❌ [{profile}] is not a table", fg=typer.colors.RED)
+                raise typer.Exit(code=1)
+
+            if "api_id" not in values or "api_secret_key" not in values:
+                typer.secho(
+                    f"❌ [{profile}] missing required keys", fg=typer.colors.RED
+                )
+                raise typer.Exit(code=1)
+
+            secret = values["api_secret_key"]
+            if (
+                not isinstance(secret, dict)
+                or "type" not in secret
+                or "value" not in secret
+            ):
+                typer.secho(
+                    f"❌ [{profile}] api_secret_key must be a dict with 'type' and 'value'",
+                    fg=typer.colors.RED,
+                )
+                raise typer.Exit(code=1)
+
+            if secret["type"] not in ("file", "vault"):
+                typer.secho(
+                    f"❌ [{profile}] api_secret_key.type must be either 'file' or 'vault' (got '{secret['type']}')",
+                    fg=typer.colors.RED,
+                )
+                raise typer.Exit(code=1)
+
+        typer.secho(f"✅ {path} is valid.", fg=typer.colors.GREEN)
+        return set(data.keys())
+
+    config_profiles = validate_file(get_config_file())
+    credentials_profiles = validate_file(get_credentials_file())
+
+    if "default" in config_profiles and "default" in credentials_profiles:
+        typer.secho(
+            "⚠️ Both config.toml and credentials contain [default] profile. "
+            "This may cause unexpected behavior.",
+            fg=typer.colors.YELLOW,
+        )

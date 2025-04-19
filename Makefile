@@ -1,3 +1,8 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+#
+# SPDX-License-Identifier: MPL-2.0
+# Author: Shohei KAMON <cameong@stir.network>
+
 # If the `COPYRIGHT_HOLDER` file exists and contains a string shorter than 50 characters,
 # use it as the name of the copyright holder.
 # If not, fall back to the default value: "Ethersecurity Inc."

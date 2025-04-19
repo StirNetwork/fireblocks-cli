@@ -1,3 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+<!-- Author: Shohei KAMON <cameong@stir.network> -->
+
 # fireblocks-cli: `configure` Command Specification (Extended)
 
 This document outlines the behavior and structure of the `configure` subcommand group in the `fireblocks-cli` tool, including extended specifications and validation behavior.

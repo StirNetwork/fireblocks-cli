@@ -8,8 +8,18 @@
 
 set -x
 
-rm CONTRIBUTORS.md
-echo '# Contributors' > CONTRIBUTORS.md
+cat <<'EOS'> CONTRIBUTORS.md
+<!--
+SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+<!-- Author: Shohei KAMON <cameong@stir.network> -->
+
+
+# Contributors
+EOS
 echo "" >> CONTRIBUTORS.md
 echo "This project is developed with contributions from the following individuals:" >> CONTRIBUTORS.md
 echo "" >> CONTRIBUTORS.md
