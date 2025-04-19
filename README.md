@@ -77,7 +77,7 @@ fireblocks-cli --help
 | `init`            | ✅  | ✅    | Initialize the default configuration files                     | Creates `~/.config/fireblocks-cli/config.toml` and `~/.config/fireblocks-cli/keys/`         |
 | `gen-keys`        | ✅  | ✅    | Generate Fireblocks-compatible private key and CSR            | Outputs to `.config/fireblocks-cli/keys/{name}.csr`, etc.                    |
 | `list`            | n/a | n/a | List all configured profiles                                   | Displays `[profile]` sections from `config.toml`                      |
-| `edit`            | n/a | n/a | Open the config file in your default `$EDITOR`                 | Falls back to `vi` or `nano` if `$EDITOR` is not set                  |
+| `edit`            | ✅  | ✅  | Open the config file in your default `$EDITOR`                 | Falls back to `vi` or `nano` if `$EDITOR` is not set                  |
 | `validate`        | ✅  | n/a | Validate the structure and contents of the config file         | Checks for invalid or missing keys and values                         |
 | `add`             | n/a | n/a | Append a new profile to the configuration file                 | Will add to the bottom of the file without auto-formatting            |
 | `remove` | n/a | n/a | Remove a profile from the configuration                        | Deletes the corresponding section from `config.toml`                  |
