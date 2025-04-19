@@ -1,3 +1,11 @@
+<!--
+SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+<!-- Author: Shohei KAMON <cameong@stir.network> -->
+
 ---
 name: General Issue
 about: Report a bug, request a feature, or suggest an improvement

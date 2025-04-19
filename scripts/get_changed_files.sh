@@ -6,4 +6,4 @@
 
 # Author: Shohei KAMON <cameong@stir.network>
 
-git status --porcelain | grep -v "^??" | cut -c4- | grep -e "\.sh$" -e "\.py$"
+git status --porcelain | grep -v "^??" | cut -c4- | grep -v "\.txt$"

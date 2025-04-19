@@ -1,5 +1,11 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+# Author: Shohei KAMON <cameong@stir.network>
+
 [bumpversion]
-current_version = "0.1.3"
+current_version = "0.1.5"
 commit = false
 tag = false
 

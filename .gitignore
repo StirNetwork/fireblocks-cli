@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+#
+# SPDX-License-Identifier: MPL-2.0
+
 # Created by https://www.toptal.com/developers/gitignore/api/vim,linux,macos,python,emacs
 # Edit at https://www.toptal.com/developers/gitignore?templates=vim,linux,macos,python,emacs
 
@@ -293,4 +297,9 @@ tags
 # End of https://www.toptal.com/developers/gitignore/api/vim,linux,macos,python,emacs
 
 # Copyright Holder
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+#
+# SPDX-License-Identifier: MPL-2.0
+# Author: Shohei KAMON <cameong@stir.network>
+
 COPYRIGHT_HOLDER

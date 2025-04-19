@@ -4,9 +4,7 @@
 
 # Author: Shohei KAMON <cameong@stir.network>
 
-try:
-    from importlib.metadata import version
-except ImportError:
-    from importlib_metadata import version  # Python <3.8 fallback
+from importlib.metadata import version as get_version
 
-__version__ = version(__name__)
+
+__version__ = get_version(__name__)
