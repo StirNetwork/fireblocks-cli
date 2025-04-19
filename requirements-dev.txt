@@ -1,8 +1,0 @@
-pyinstaller
-bump-my-version
-black
-reuse
-pre-commit
-build
-twine
-pytest

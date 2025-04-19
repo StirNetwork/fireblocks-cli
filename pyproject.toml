@@ -1,10 +1,10 @@
 [project]
 name = "fireblocks-cli"
-version = "0.1.4"
+version = "0.1.5"
 description = "An unofficial CLI for managing Fireblocks services."
 authors = [{ name = "Kamon Shohei" }]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "typer[all]>0.15.0",
     "toml>0.10.0"
@@ -13,3 +13,13 @@ dependencies = [
 
 [project.scripts]
 fireblocks-cli = "fireblocks_cli.main:app"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.15.0"
+pyinstaller = "^6.13.0"
+black = "^25.1.0"
+reuse = "^5.0.2"
+pre-commit = "^4.2.0"
+build = "^1.2.2.post1"
+twine = "^6.1.0"
+pytest = "^8.3.5"

@@ -5,7 +5,7 @@ copyright_holder ?= $(shell bash scripts/get_copyright.sh)
 change_files ?= $(shell bash scripts/get_changed_files.sh)
 
 install-dev:
-	pip install -e .[dev]
+	poetry install
 
 test:
 	pytest
