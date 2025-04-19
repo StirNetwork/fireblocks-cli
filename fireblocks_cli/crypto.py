@@ -9,6 +9,9 @@ import string
 from pathlib import Path
 import subprocess
 import typer
+from fireblocks_cli.config import (
+    get_api_key_dir,
+)
 
 
 def generate_unique_basename(base_dir: Path) -> tuple[str, Path, Path]:
@@ -21,8 +24,8 @@ def generate_unique_basename(base_dir: Path) -> tuple[str, Path, Path]:
 
 
 def generate_key_and_csr(org_name: str) -> tuple[Path, Path]:
-    base_dir = Path.home() / ".fireblocks" / "keys"
-    base_dir.mkdir(parents=True, exist_ok=True)
+    api_key_dir = get_api_key_dir()
+    api_key_dir.mkdir(parents=True, exist_ok=True)
 
     basename, key_path, csr_path = generate_unique_basename(base_dir)
     subj = f"/O={org_name}"

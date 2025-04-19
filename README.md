@@ -24,7 +24,7 @@ Please ensure you are using Python 3.11+ before running or contributing to this 
 You can install fireblocks-cli locally as a Python project:
 
 ```bash
-git clone https://github.com/your-org/fireblocks-cli.git
+git clone https://github.com/stirnetwork/fireblocks-cli.git
 cd fireblocks-cli
 pip install .
 ```
@@ -64,15 +64,15 @@ fireblocks-cli --help
 
 # fireblocks-cli configure Subcommand List
 
-| Subcommand        | Status          | Description                                                    | Notes                                                                 |
-|-------------------|------------------|----------------------------------------------------------------|-----------------------------------------------------------------------|
-| `init`            | Not implemented  | Initialize the default configuration files                     | Creates `~/.config/fireblocks-cli/config.toml` and `~/.config/fireblocks-cli/keys/`         |
-| `gen-keys`        | ✅ Implemented    | Generate Fireblocks-compatible private key and CSR            | Outputs to `.config/fireblocks-cli/keys/{name}.csr`, etc.                    |
-| `list`            | Not implemented  | List all configured profiles                                   | Displays `[profile]` sections from `config.toml`                      |
-| `edit`            | Not implemented  | Open the config file in your default `$EDITOR`                 | Falls back to `vi` or `nano` if `$EDITOR` is not set                  |
-| `validate`        | Not implemented  | Validate the structure and contents of the config file         | Checks for invalid or missing keys and values                         |
-| `add`    | Not implemented  | Append a new profile to the configuration file                 | Will add to the bottom of the file without auto-formatting            |
-| `remove` | Not implemented  | Remove a profile from the configuration                        | Deletes the corresponding section from `config.toml`                  |
+| Subcommand        | Implemented | Test         | Description                                                    | Notes                                                                 |
+|-------------------|-------------|--------------|----------------------------------------------------------------|-----------------------------------------------------------------------|
+| `init`            | ✅  | ✅    | Initialize the default configuration files                     | Creates `~/.config/fireblocks-cli/config.toml` and `~/.config/fireblocks-cli/keys/`         |
+| `gen-keys`        | ✅  | n/a | Generate Fireblocks-compatible private key and CSR            | Outputs to `.config/fireblocks-cli/keys/{name}.csr`, etc.                    |
+| `list`            | n/a | n/a | List all configured profiles                                   | Displays `[profile]` sections from `config.toml`                      |
+| `edit`            | n/a | n/a | Open the config file in your default `$EDITOR`                 | Falls back to `vi` or `nano` if `$EDITOR` is not set                  |
+| `validate`        | n/a | n/a | Validate the structure and contents of the config file         | Checks for invalid or missing keys and values                         |
+| `add`             | n/a | n/a | Append a new profile to the configuration file                 | Will add to the bottom of the file without auto-formatting            |
+| `remove` | n/a | n/a | Remove a profile from the configuration                        | Deletes the corresponding section from `config.toml`                  |
 
 
 ---

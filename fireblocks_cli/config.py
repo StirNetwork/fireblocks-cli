@@ -3,12 +3,31 @@
 # SPDX-License-Identifier: MPL-2.0
 
 # Author: Shohei KAMON <cameong@stir.network>
+from pathlib import Path
 
-from fireblocks_cli.commands.configure import configure_app
-import typer
 
-app = typer.Typer()
-app.add_typer(configure_app, name="configure")
+def get_config_dir() -> Path:
+    return Path.home() / ".config" / "fireblocks-cli"
 
-if __name__ == "__main__":
-    app()
+
+def get_config_file() -> Path:
+    return get_config_dir() / "config.toml"
+
+
+def get_api_key_dir() -> Path:
+    return get_config_dir() / "keys"
+
+
+def get_credentials_file() -> Path:
+    return get_config_dir() / "credentials"
+
+
+DEFAULT_CONFIG = {
+    "default": {
+        "api_id": "get-api_id-from-fireblocks-dashboard",
+        "api_secret_key": {
+            "type": "file",
+            "value": "~/.config/fireblocks-cli/keys/abcd.key",
+        },
+    }
+}

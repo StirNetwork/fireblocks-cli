@@ -5,3 +5,4 @@ reuse
 pre-commit
 build
 twine
+pytest
