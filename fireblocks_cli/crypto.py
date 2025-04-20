@@ -9,7 +9,7 @@ import string
 from pathlib import Path
 import subprocess
 import typer
-from fireblocks_cli.config import (
+from fireblocks_cli.utils.profile import (
     get_api_key_dir,
 )
 

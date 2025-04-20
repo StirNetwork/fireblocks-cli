@@ -7,4 +7,4 @@
 # Author: Shohei KAMON <cameong@stir.network>
 
 # exclude removed file: grep -v "^D"
-git status --porcelain | grep -v "^??" | grep -v "^D " | cut -c4- | grep -v "\.txt$"
+git status --porcelain | grep -v "^??" | grep -v "^D " | cut -c4- | grep -v "\.txt$" |  grep -v "poetry.lock.license"

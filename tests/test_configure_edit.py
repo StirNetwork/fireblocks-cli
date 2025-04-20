@@ -7,7 +7,7 @@ import os
 import pytest
 from typer.testing import CliRunner
 from fireblocks_cli.main import app
-from fireblocks_cli.config import get_config_file
+from fireblocks_cli.utils.profile import get_config_file
 from pathlib import Path
 
 runner = CliRunner()
