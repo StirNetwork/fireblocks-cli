@@ -14,6 +14,7 @@ from fireblocks_cli.commands import profile_debug
 app = typer.Typer(help="Unofficial CLI for Fireblocks")
 
 app.add_typer(configure_app, name="configure")
+app.add_typer(profile_debug.app, name="profile")
 
 
 @app.callback()

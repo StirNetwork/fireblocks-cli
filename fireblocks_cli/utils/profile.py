@@ -5,6 +5,7 @@
 
 from typing import List, Dict
 import toml
+from fireblocks_cli.types.profile_config import ApiProfile, SecretKeyConfig
 
 
 DEFAULT_PROFILE = "default"
@@ -38,13 +39,6 @@ def get_api_key_dir() -> Path:
 
 def get_credentials_file() -> Path:
     return get_config_dir() / "credentials"
-
-
-def load_profile(profile: str = DEFAULT_PROFILE) -> dict:
-    profiles = get_profiles()
-    if profile not in profiles:
-        raise ValueError(f"No such profile: '{profile}' is defined")
-    return profiles[profile]
 
 
 class ProfileLoadError(Exception):
