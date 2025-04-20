@@ -9,8 +9,10 @@
 from fireblocks_cli.commands.configure import configure_app
 import typer
 from fireblocks_cli import __version__
+from fireblocks_cli.commands import profile_debug
 
-app = typer.Typer()
+app = typer.Typer(help="Unofficial CLI for Fireblocks")
+
 app.add_typer(configure_app, name="configure")
 
 
@@ -27,7 +29,13 @@ def main(
             if v
             else None
         ),
-    )
+    ),
+    profile: str = typer.Option(
+        "default",
+        "--profile",
+        "-p",
+        help="Specify profile to use.",
+    ),
 ):
     pass
 
@@ -41,6 +49,8 @@ def version():
     """Show CLI version"""
     typer.echo(f"fireblocks-cli version {__version__}")
 
+
+app.add_typer(profile_debug.app, name="profile")
 
 if __name__ == "__main__":
     app()

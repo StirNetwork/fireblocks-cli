@@ -3,8 +3,48 @@
 # SPDX-License-Identifier: MPL-2.0
 # Author: Shohei KAMON <cameong@stir.network>
 
+from typing import List, Dict
 import toml
-from fireblocks_cli.config import get_config_file, get_credentials_file
+
+
+DEFAULT_PROFILE = "default"
+
+
+from pathlib import Path
+
+DEFAULT_PROFILE = "default"
+DEFAULT_CONFIG = {
+    "default": {
+        "api_id": "get-api_id-from-fireblocks-dashboard",
+        "api_secret_key": {
+            "type": "file",
+            "value": "~/.config/fireblocks-cli/keys/abcd.key",
+        },
+    }
+}
+
+
+def get_config_dir() -> Path:
+    return Path.home() / ".config" / "fireblocks-cli"
+
+
+def get_config_file() -> Path:
+    return get_config_dir() / "config.toml"
+
+
+def get_api_key_dir() -> Path:
+    return get_config_dir() / "keys"
+
+
+def get_credentials_file() -> Path:
+    return get_config_dir() / "credentials"
+
+
+def load_profile(profile: str = DEFAULT_PROFILE) -> dict:
+    profiles = get_profiles()
+    if profile not in profiles:
+        raise ValueError(f"No such profile: '{profile}' is defined")
+    return profiles[profile]
 
 
 class ProfileLoadError(Exception):
@@ -45,3 +85,10 @@ def get_profiles() -> dict:
         except Exception as e:
             raise ProfileLoadError(f"Failed to parse credentials: {e}")
     return combined_data
+
+
+def load_profile(profile: str = DEFAULT_PROFILE) -> dict:
+    profiles = get_profiles()
+    if profile not in profiles:
+        raise ValueError(f"No such profile :'{profile}' is defined.")
+    return profiles[profile]
