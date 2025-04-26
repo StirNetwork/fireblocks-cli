@@ -22,16 +22,18 @@ dependencies = [
 [project.scripts]
 fireblocks-cli = "fireblocks_cli.main:app"
 
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.15.0"
-pyinstaller = "^6.13.0"
-black = "^25.1.0"
-reuse = { version = "^5.0.2", python = ">=3.9,<4.0" }
-pre-commit = "^4.2.0"
-build = "^1.2.2.post1"
-twine = "^6.1.0"
-pytest = "^8.3.5"
-types-toml = "^0.10.8.20240310"
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.15.0",
+    "pyinstaller>=6.13.0",
+    "black>=25.1.0",
+    "reuse>=5.0.2; python_version >= '3.9' and python_version < '4.0'",
+    "pre-commit>=4.2.0",
+    "build>=1.2.2.post1",
+    "twine>=6.1.0",
+    "pytest>=8.3.5",
+    "types-toml>=0.10.8.20240310"
+]
 
 [build-system]
 requires = ["setuptools>=65", "wheel"]
