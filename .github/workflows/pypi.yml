@@ -15,6 +15,9 @@ jobs:
   build-and-publish:
     name: Build and publish to PyPI
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
       - name: Checkout code
@@ -32,6 +35,22 @@ jobs:
 
       - name: Build package
         run: python -m build
+
+      - name: Generate SHA256
+        run: |
+          sha256sum dist/*.tar.gz > dist/fireblocks-cli-${GITHUB_REF##*/}.tar.gz.sha256
+
+      - name: Upload Release Assets to GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.tar.gz
+            dist/*.tar.gz.sha256
+          generate_release_notes: true
+          create_release: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.8.11
