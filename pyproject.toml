@@ -36,3 +36,6 @@ types-toml = "^0.10.8.20240310"
 [build-system]
 requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["fireblocks_cli*"]
