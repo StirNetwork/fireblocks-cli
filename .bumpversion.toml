@@ -5,7 +5,7 @@
 # Author: Shohei KAMON <cameong@stir.network>
 
 [bumpversion]
-current_version = "0.1.5"
+current_version = "0.1.6"
 commit = false
 tag = false
 
