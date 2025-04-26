@@ -34,7 +34,7 @@ pytest = "^8.3.5"
 types-toml = "^0.10.8.20240310"
 
 [build-system]
-requires = ["setuptools>=61", "wheel"]
+requires = ["setuptools>=65", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
