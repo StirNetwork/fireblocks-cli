@@ -4,7 +4,5 @@
 
 # Author: Shohei KAMON <cameong@stir.network>
 
-from importlib.metadata import version as get_version
 
-
-__version__ = get_version(__name__)
+__version__ = "0.1.9"
