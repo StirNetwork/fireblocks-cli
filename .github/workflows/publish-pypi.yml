@@ -8,7 +8,7 @@ name: Publish to PyPI
 on:
   push:
     tags:
-      - 'v*'  # v1.0.0 のようなタグで実行
+      - 'v*'  # Trigger on any tag push
   workflow_dispatch:
 
 jobs:
@@ -33,13 +33,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade setuptools wheel build twine
 
-      - name: Build and publish
+      - name: Check version format
+        id: check_version
+        run: |
+          if [[ "${GITHUB_REF##*/}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Valid version tag detected: ${GITHUB_REF##*/}"
+            echo "VERSION_VALID=true" >> $GITHUB_ENV
+          else
+            echo "Invalid version tag detected: ${GITHUB_REF##*/}"
+            echo "VERSION_VALID=false" >> $GITHUB_ENV
+          fi
+
+      - name: Build for PyPI
+        run: |
+          python -m build
+
+      - name: publish to PyPI
+        if: env.VERSION_VALID == 'true'
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          python -m build
           twine upload --repository pypi dist/*
+
 
       - name: Generate SHA256
         run: |
@@ -52,6 +68,6 @@ jobs:
             dist/*.tar.gz
             dist/*.tar.gz.sha256
           generate_release_notes: true
-          create_release: true
+          create_release: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
