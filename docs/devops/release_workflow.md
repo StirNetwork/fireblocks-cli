@@ -14,14 +14,12 @@ This document outlines the release process for the **fireblocks-cli** project, c
 When a tag (e.g., `v0.1.8`) is pushed, the following actions are triggered:
 
 1. **PyPI release**: The Python package is built and uploaded to **PyPI** (source tar.gz and wheel).
-2. **Homebrew release**: Binary files for **Intel** and **ARM** Macs are built using **PyInstaller** and uploaded to **GitHub Releases**.
 
 ## Workflow Steps
 
 1. **Trigger**: A tag is pushed (e.g., `v0.1.8`) to GitHub.
 2. **GitHub Actions**:
    - **publish-pypi.yml**: This workflow builds the Python package and uploads it to PyPI.
-   - **publish-homebrew.yml**: This workflow builds binaries (Intel/ARM) using `pyinstaller` and uploads them to GitHub Releases.
 
 
 # Additional Notes

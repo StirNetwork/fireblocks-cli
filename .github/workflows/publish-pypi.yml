@@ -68,6 +68,6 @@ jobs:
             dist/*.tar.gz
             dist/*.tar.gz.sha256
           generate_release_notes: true
-          create_release: false
+          create_release: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
