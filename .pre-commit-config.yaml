@@ -22,6 +22,13 @@ repos:
         stages: [commit]
   - repo: local
     hooks:
+      - id: update-__init__.py
+        name: Sync __init__.py with pyproject.toml
+        entry: python ./scripts/sync_init_with_pyproject.py
+        language: python
+        files: pyproject.toml
+  - repo: local
+    hooks:
       - id: add-spdx
         name: Add spdx
         entry: make annotate-SPD
