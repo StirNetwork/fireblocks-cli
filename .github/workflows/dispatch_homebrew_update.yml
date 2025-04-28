@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2025 Ethersecurity Inc.
+#
+# SPDX-License-Identifier: MPL-2.0
+# Author: Shohei KAMON <cameong@stir.network>
+
+name: Dispatch Homebrew Tap Update
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check version format
+        id: check_version
+        run: |
+          if [[ "${GITHUB_REF##*/}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Valid version tag detected: ${GITHUB_REF##*/}"
+            echo "VERSION_VALID=true" >> $GITHUB_ENV
+          else
+            echo "Invalid version tag detected: ${GITHUB_REF##*/}"
+            echo "VERSION_VALID=false" >> $GITHUB_ENV
+          fi
+
+
+      - name: Trigger Homebrew Tap Update
+        if: env.VERSION_VALID == 'true'
+        run: |
+          curl -X POST https://api.github.com/repos/stirnetwork/homebrew-tap/dispatches \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.HOMEBREW_TAP_PAT }}" \
+            -d '{"event_type": "fireblocks-cli-release", "client_payload": { "version": "${GITHUB_REF##*/}" }}'
