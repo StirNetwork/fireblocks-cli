@@ -29,7 +29,7 @@ jobs:
       - name: Trigger Homebrew Tap Update
         if: env.VERSION_VALID == 'true'
         run: |
-          curl -X POST https://api.github.com/repos/stirnetwork/homebrew-tap/dispatches \
+          curl -i -X POST https://api.github.com/repos/stirnetwork/homebrew-tap/dispatches \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.HOMEBREW_TAP_PAT }}" \
             -d '{"event_type": "fireblocks-cli-release", "client_payload": { "version": "${GITHUB_REF##*/}" }}'
