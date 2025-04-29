@@ -50,7 +50,6 @@ def update_version(
     # 6. ファイルを書き直す
     with open(init_path, "w") as f:
         f.writelines(header)
-        f.write("\n")
         f.write(f'__version__ = "{pyproject_version}"\n')
 
     print(f"Updated {init_path}: {current_version} → {pyproject_version}")
