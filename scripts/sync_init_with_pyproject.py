@@ -5,8 +5,9 @@
 # SPDX-License-Identifier: MPL-2.0
 # Author: Shohei KAMON <cameong@stir.network>
 
-import toml
 import re
+import sys
+import tomllib as toml
 
 
 def update_version(
@@ -16,7 +17,7 @@ def update_version(
     """pyproject.tomlのversionと__init__.pyのversionを同期する"""
 
     # 1. pyproject.toml を読み込む
-    with open(pyproject_path, "r") as f:
+    with open(pyproject_path, "rb") as f:
         pyproject = toml.load(f)
     pyproject_version = pyproject["project"]["version"]
 
@@ -37,7 +38,7 @@ def update_version(
         print(
             f"No update needed: {init_path} version {current_version} matches pyproject.toml version {pyproject_version}"
         )
-        return
+        return False
 
     # 5. SPDXヘッダーのみ残して、後続を書き直す
     header = []
@@ -50,11 +51,11 @@ def update_version(
     # 6. ファイルを書き直す
     with open(init_path, "w") as f:
         f.writelines(header)
-        f.write("\n")
         f.write(f'__version__ = "{pyproject_version}"\n')
 
     print(f"Updated {init_path}: {current_version} → {pyproject_version}")
 
 
 if __name__ == "__main__":
-    update_version()
+    changed = update_version()
+    sys.exit(1 if changed else 0)

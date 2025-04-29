@@ -65,16 +65,36 @@ def init():
 
 
 @configure_app.command("gen-keys")
-def gen_keys():
-    """秘密鍵とCSRを api_key_dir に生成します"""
-    org = typer.prompt("🔐 組織名を入力してください（例: MyCompany）").strip()
+def gen_keys(
+    org_name: str = typer.Option(None, help="Organization Name (CN/O)"),
+    key_type: str = typer.Option(
+        None, "--key-type", help="Key type: rsa:2048, rsa:4096, ed25519"
+    ),
+):
+    """Generate a pair of secret key and the CSR key"""
+    org = typer.prompt("🔐 Organization Name:").strip()
     if not org:
-        typer.secho("❌ 組織名は必須です。処理を中止します。", fg=typer.colors.RED)
+        typer.secho("❌ Organisztion Name is required.", fg=typer.colors.RED)
         raise typer.Exit(code=1)
+    if not key_type:
+        typer.echo("Select Key Type:")
+        typer.echo("[1] rsa:2048")
+        typer.echo("[2] rsa:4096 (default)")
+        typer.echo("[3] ed25519")
+        choice = typer.prompt("Enter number (or 'y' for default)").strip().lower()
+        if choice in ("", "y", "2"):
+            key_type = "rsa:4096"
+        elif choice == "1":
+            key_type = "rsa:2048"
+        elif choice == "3":
+            key_type = "ed25519"
+        else:
+            typer.secho("❌ Invalid choice.", fg=typer.colors.RED)
+            raise typer.Exit(code=1)
 
-    key_path, csr_path = generate_key_and_csr(org)
-    typer.secho(f"✅ 秘密鍵: {key_path}", fg=typer.colors.GREEN)
-    typer.secho(f"✅ CSR   : {csr_path}", fg=typer.colors.GREEN)
+    key_path, csr_path = generate_key_and_csr(org_name, key_type)
+    typer.secho(f"✅ Private Key: {key_path}", fg=typer.colors.GREEN)
+    typer.secho(f"✅ CSR     Key: {csr_path}", fg=typer.colors.GREEN)
 
 
 @configure_app.command("validate")
