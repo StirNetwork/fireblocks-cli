@@ -26,7 +26,7 @@ pre-commit-refresh:
 	@echo "🧹 Cleaning pre-commit cache..."
 	pre-commit clean
 	@echo "🔄 Installing pre-commit hooks..."
-	pre-commit install --hook-type pre-commit
+	pre-commit install --hook-type pre-commit --hook-type commit-msg
 	@echo "⬆️  Updating pre-commit hooks..."
 	pre-commit autoupdate
 	@echo "🚀 Running all pre-commit hooks..."
