@@ -127,6 +127,28 @@ Run all pre-commit hooks:
 make pre-commit-refresh
 ```
 
+### Commit sign-off (required)
+
+Every commit in this repository **must** include a DCO sign-off (`Signed-off-by` line).
+This is enforced locally by a pre-commit `commit-msg` hook and in CI by the [DCO check workflow](.github/workflows/dco.yml).
+
+Use the `-s` flag when committing:
+
+```bash
+git commit -s -m "Your commit message"
+# or
+git commit -sm "Your commit message"
+```
+
+Without sign-off, the commit-msg hook rejects the commit:
+
+```
+❌ Commit message is missing a 'Signed-off-by' line.
+💡 Please use: git commit -sm "your message"
+```
+
+See [Contributing](#-contributing) for details on DCO.
+
 ---
 
 ##  Build a binary (optional)
@@ -185,7 +207,9 @@ To change the copyright holder name inserted into source files:
 
 Contributions are welcome!
 
-Please make sure your commits are signed off (DCO) and that you run the following before pushing:
+**All commits must be signed off (DCO).** Use `git commit -s` or `git commit -sm` so that each commit message includes a `Signed-off-by` line. Unsigned commits are rejected by the pre-commit hook and by CI.
+
+Also run the following before pushing:
 
 ```bash
 pre-commit run --all-files
